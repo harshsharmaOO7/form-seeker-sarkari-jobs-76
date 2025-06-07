@@ -65,7 +65,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				success: 'hsl(var(--success))',
+				'success-foreground': 'hsl(var(--success-foreground))',
+				warning: 'hsl(var(--warning))',
+				'warning-foreground': 'hsl(var(--warning-foreground))',
+				info: 'hsl(var(--info))',
+				'info-foreground': 'hsl(var(--info-foreground))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -88,11 +94,16 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				scroll: {
+					'0%': { transform: 'translateX(100%)' },
+					'100%': { transform: 'translateX(-100%)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				scroll: 'scroll 30s linear infinite'
 			}
 		}
 	},
