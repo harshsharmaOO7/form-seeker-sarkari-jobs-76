@@ -124,7 +124,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       <Header />
       
       {/* Search Section */}
@@ -165,7 +165,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {quickStats.map((stat, index) => (
-              <Card key={index} className="text-center p-4">
+              <Card key={index} className="text-center p-4 bg-white">
                 <div className="flex items-center justify-center mb-2">
                   <stat.icon className="w-6 h-6 text-primary mr-2" />
                   <span className="text-2xl font-bold text-primary">{stat.value}</span>
@@ -181,55 +181,63 @@ const Index = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            {/* Latest Jobs Section */}
+            {/* Online Form Section */}
             <div className="mb-8">
               <div className="section-header rounded-t-md">
                 <div className="flex items-center">
                   <Clock className="w-5 h-5 mr-2" />
-                  Latest Job Notifications
+                  Online Form
                 </div>
               </div>
-              <div className="bg-card border border-t-0 rounded-b-md">
-                {latestJobs.map((job, index) => (
-                  <div key={job.id} className={`p-4 ${index !== latestJobs.length - 1 ? 'border-b border-border' : ''}`}>
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Badge variant={job.status === 'New' ? 'default' : 'secondary'} className="text-xs">
-                            {job.status}
-                          </Badge>
-                          <span className="category-badge">{job.category}</span>
+              <div className="bg-white border border-t-0 rounded-b-md">
+                <div className="grid grid-cols-1 gap-4 p-4">
+                  {latestJobs.map((job) => (
+                    <Card key={job.id} className="bg-white border hover:shadow-md transition-shadow">
+                      <CardContent className="p-4">
+                        <div className="flex flex-col space-y-3">
+                          <div className="flex items-center gap-2">
+                            <Badge variant={job.status === 'New' ? 'default' : 'secondary'} className="text-xs">
+                              {job.status}
+                            </Badge>
+                            <span className="category-badge">{job.category}</span>
+                          </div>
+                          
+                          <h3 className="font-semibold text-foreground hover:text-primary cursor-pointer">
+                            <Link to={`/job/${job.id}`}>{job.title}</Link>
+                          </h3>
+                          
+                          <p className="text-sm text-muted-foreground">{job.department}</p>
+                          
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                              <span className="flex items-center">
+                                <Users className="w-4 h-4 mr-1" />
+                                {job.posts} Posts
+                              </span>
+                              <span className="flex items-center">
+                                <Calendar className="w-4 h-4 mr-1" />
+                                Last Date: {formatDate(job.lastDate)}
+                              </span>
+                            </div>
+                            
+                            <div className="flex items-center gap-3">
+                              <div className="text-center">
+                                <div className="text-lg font-bold text-primary">{getDaysLeft(job.lastDate)}</div>
+                                <div className="text-xs text-muted-foreground">Days Left</div>
+                              </div>
+                              <Link to={`/job/${job.id}`}>
+                                <Button size="sm">View Details</Button>
+                              </Link>
+                            </div>
+                          </div>
                         </div>
-                        <h3 className="font-semibold text-foreground mb-1 hover:text-primary cursor-pointer">
-                          <Link to={`/job/${job.id}`}>{job.title}</Link>
-                        </h3>
-                        <p className="text-sm text-muted-foreground mb-2">{job.department}</p>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                          <span className="flex items-center">
-                            <Users className="w-4 h-4 mr-1" />
-                            {job.posts} Posts
-                          </span>
-                          <span className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-1" />
-                            Last Date: {formatDate(job.lastDate)}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-end gap-2">
-                        <div className="text-center">
-                          <div className="text-lg font-bold text-primary">{getDaysLeft(job.lastDate)}</div>
-                          <div className="text-xs text-muted-foreground">Days Left</div>
-                        </div>
-                        <Link to={`/job/${job.id}`}>
-                          <Button size="sm">View Details</Button>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
                 <div className="p-4 text-center border-t border-border">
                   <Link to="/category/all">
-                    <Button variant="outline">View All Jobs</Button>
+                    <Button variant="outline">View All Forms</Button>
                   </Link>
                 </div>
               </div>
@@ -243,11 +251,11 @@ const Index = () => {
                   Job Categories
                 </div>
               </div>
-              <div className="bg-card border border-t-0 rounded-b-md p-6">
+              <div className="bg-white border border-t-0 rounded-b-md p-6">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {categories.map((category) => (
                     <Link key={category.name} to={category.path}>
-                      <Card className={`text-center hover:shadow-md transition-all duration-200 border-2 ${category.color}`}>
+                      <Card className={`text-center hover:shadow-md transition-all duration-200 border-2 ${category.color} bg-white`}>
                         <CardContent className="p-4">
                           <div className="flex flex-col items-center">
                             <category.icon className="w-8 h-8 mb-2" />
@@ -270,7 +278,7 @@ const Index = () => {
               <div className="section-header rounded-t-md">
                 Important Links
               </div>
-              <div className="bg-card border border-t-0 rounded-b-md p-4">
+              <div className="bg-white border border-t-0 rounded-b-md p-4">
                 <div className="space-y-2">
                   <a href="#" className="block text-sm text-foreground hover:text-primary py-1 border-b border-border/50">
                     📋 Admit Card Downloads
@@ -296,7 +304,7 @@ const Index = () => {
               <div className="section-header rounded-t-md">
                 Quick Updates
               </div>
-              <div className="bg-card border border-t-0 rounded-b-md p-4">
+              <div className="bg-white border border-t-0 rounded-b-md p-4">
                 <div className="space-y-3">
                   <div className="text-sm">
                     <div className="font-medium text-foreground">Railway Result 2024</div>
