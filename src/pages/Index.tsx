@@ -12,46 +12,102 @@ import { Badge } from "@/components/ui/badge";
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const latestJobs = [
+  const resultData = [
     {
       id: 1,
-      title: "Police Constable Recruitment 2024",
-      department: "State Police Department",
-      description: "Recruitment for 5000 Police Constable posts across various districts",
-      lastDate: "2024-07-15",
-      category: "Police",
-      posts: "5000",
-      status: "Active"
+      title: "Jharkhand Board JAC Class 12th Arts Result 2025",
+      description: "Declared",
+      link: "/result/1"
     },
     {
       id: 2,
-      title: "Railway Group D Notification",
-      department: "Indian Railways",
-      description: "Application for Track Maintainer, Helper and other Group D posts",
-      lastDate: "2024-07-20",
-      category: "Railway",
-      posts: "35000",
-      status: "Active"
+      title: "UPSC CDS II 2024 Marks",
+      description: "Published",
+      link: "/result/2"
     },
     {
       id: 3,
-      title: "Bank PO Recruitment",
-      department: "State Bank of India",
-      description: "Probationary Officer recruitment for various branches",
-      lastDate: "2024-07-25",
-      category: "Banking",
-      posts: "2000",
-      status: "Active"
+      title: "SSB Junior Instructor Result 2025",
+      description: "Declared",
+      link: "/result/3"
     },
     {
       id: 4,
-      title: "Teaching Staff Vacancy",
-      department: "Education Department",
-      description: "Primary and Secondary teacher recruitment in government schools",
-      lastDate: "2024-07-30",
-      category: "Teaching",
-      posts: "8500",
-      status: "New"
+      title: "OFSS Bihar Class 11th Admissions First Merit List 2025",
+      description: "Released",
+      link: "/result/4"
+    },
+    {
+      id: 5,
+      title: "JEE Advanced 2025 Result",
+      description: "Declared",
+      link: "/result/5"
+    }
+  ];
+
+  const admitCardData = [
+    {
+      id: 1,
+      title: "BSPHCL Various Post Exam Date 2025",
+      description: "Download Now",
+      link: "/admit-card/1"
+    },
+    {
+      id: 2,
+      title: "NAUKRIIG NET June 2025 Subject Wise Exam Date",
+      description: "Available",
+      link: "/admit-card/2"
+    },
+    {
+      id: 3,
+      title: "UPSSSC Mukhya Sevika 2022 DV Letter",
+      description: "Download",
+      link: "/admit-card/3"
+    },
+    {
+      id: 4,
+      title: "UP GNM Entrance Test UPGET 2025 Admit Card",
+      description: "Released",
+      link: "/admit-card/4"
+    },
+    {
+      id: 5,
+      title: "BSSC Field Assistant Exam Date 2025",
+      description: "Available",
+      link: "/admit-card/5"
+    }
+  ];
+
+  const sewayojanData = [
+    {
+      id: 1,
+      title: "SSC Combined Hindi Translators JHT Online Form 2025",
+      description: "Apply Online",
+      link: "/sewayojan/1"
+    },
+    {
+      id: 2,
+      title: "SSC Stenographer Grade C and D Online Form 2025",
+      description: "Registration Open",
+      link: "/sewayojan/2"
+    },
+    {
+      id: 3,
+      title: "Army School AWES TGT, PGT, PRT Online Form 2025",
+      description: "Apply Now",
+      link: "/sewayojan/3"
+    },
+    {
+      id: 4,
+      title: "Bihar Panchayati Raj Technical Assistant Online Form 2025",
+      description: "Application Open",
+      link: "/sewayojan/4"
+    },
+    {
+      id: 5,
+      title: "IPSCDRA Operation Officer and Other Various Post Online Form 2025",
+      description: "Apply Online",
+      link: "/sewayojan/5"
     }
   ];
 
@@ -106,22 +162,6 @@ const Index = () => {
     { label: "This Week", value: "543", icon: Calendar },
     { label: "Total Users", value: "50K+", icon: Users }
   ];
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-IN', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric'
-    });
-  };
-
-  const getDaysLeft = (dateString: string) => {
-    const today = new Date();
-    const lastDate = new Date(dateString);
-    const diffTime = lastDate.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
-  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -178,73 +218,101 @@ const Index = () => {
       </section>
 
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2">
-            {/* Online Form Section */}
-            <div className="mb-8">
-              <div className="section-header rounded-t-md">
-                <div className="flex items-center">
-                  <Clock className="w-5 h-5 mr-2" />
-                  Online Form
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Main Content - Three Columns */}
+          <div className="lg:col-span-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              
+              {/* Result Column */}
+              <div className="bg-white border rounded-lg">
+                <div className="bg-red-600 text-white px-4 py-3 font-semibold text-lg rounded-t-lg">
+                  Result
                 </div>
-              </div>
-              <div className="bg-white border border-t-0 rounded-b-md">
-                <div className="grid grid-cols-1 gap-4 p-4">
-                  {latestJobs.map((job) => (
-                    <Card key={job.id} className="bg-white border hover:shadow-md transition-shadow">
-                      <CardContent className="p-4">
-                        <div className="flex flex-col space-y-3">
-                          <div className="flex items-center gap-2">
-                            <Badge variant={job.status === 'New' ? 'default' : 'secondary'} className="text-xs">
-                              {job.status}
-                            </Badge>
-                            <span className="category-badge">{job.category}</span>
-                          </div>
-                          
-                          <h3 className="font-semibold text-foreground hover:text-primary cursor-pointer">
-                            <Link to={`/job/${job.id}`}>{job.title}</Link>
-                          </h3>
-                          
-                          <p className="text-sm text-muted-foreground">{job.department}</p>
-                          
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                              <span className="flex items-center">
-                                <Users className="w-4 h-4 mr-1" />
-                                {job.posts} Posts
-                              </span>
-                              <span className="flex items-center">
-                                <Calendar className="w-4 h-4 mr-1" />
-                                Last Date: {formatDate(job.lastDate)}
-                              </span>
-                            </div>
-                            
-                            <div className="flex items-center gap-3">
-                              <div className="text-center">
-                                <div className="text-lg font-bold text-primary">{getDaysLeft(job.lastDate)}</div>
-                                <div className="text-xs text-muted-foreground">Days Left</div>
-                              </div>
-                              <Link to={`/job/${job.id}`}>
-                                <Button size="sm">View Details</Button>
-                              </Link>
-                            </div>
+                <div className="p-4 space-y-3 max-h-96 overflow-y-auto">
+                  {resultData.map((item) => (
+                    <div key={item.id} className="border-b border-gray-100 pb-2 last:border-b-0">
+                      <Link to={item.link} className="block hover:text-primary">
+                        <div className="flex items-start gap-2">
+                          <span className="text-blue-600 text-xs mt-1">•</span>
+                          <div>
+                            <h4 className="text-sm font-medium text-gray-800 hover:text-primary line-clamp-2">
+                              {item.title}
+                            </h4>
+                            <span className="text-xs text-green-600 font-medium">{item.description}</span>
                           </div>
                         </div>
-                      </CardContent>
-                    </Card>
+                      </Link>
+                    </div>
                   ))}
                 </div>
-                <div className="p-4 text-center border-t border-border">
-                  <Link to="/category/all">
-                    <Button variant="outline">View All Forms</Button>
+                <div className="p-3 text-center border-t">
+                  <Link to="/results">
+                    <Button variant="outline" size="sm">View All Results</Button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Admit Card Column */}
+              <div className="bg-white border rounded-lg">
+                <div className="bg-green-600 text-white px-4 py-3 font-semibold text-lg rounded-t-lg">
+                  Admit Card
+                </div>
+                <div className="p-4 space-y-3 max-h-96 overflow-y-auto">
+                  {admitCardData.map((item) => (
+                    <div key={item.id} className="border-b border-gray-100 pb-2 last:border-b-0">
+                      <Link to={item.link} className="block hover:text-primary">
+                        <div className="flex items-start gap-2">
+                          <span className="text-blue-600 text-xs mt-1">•</span>
+                          <div>
+                            <h4 className="text-sm font-medium text-gray-800 hover:text-primary line-clamp-2">
+                              {item.title}
+                            </h4>
+                            <span className="text-xs text-orange-600 font-medium">{item.description}</span>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+                <div className="p-3 text-center border-t">
+                  <Link to="/admit-cards">
+                    <Button variant="outline" size="sm">View All Admit Cards</Button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Sewayojan Bharti Column */}
+              <div className="bg-white border rounded-lg">
+                <div className="bg-blue-600 text-white px-4 py-3 font-semibold text-lg rounded-t-lg">
+                  Sewayojan Bharti
+                </div>
+                <div className="p-4 space-y-3 max-h-96 overflow-y-auto">
+                  {sewayojanData.map((item) => (
+                    <div key={item.id} className="border-b border-gray-100 pb-2 last:border-b-0">
+                      <Link to={item.link} className="block hover:text-primary">
+                        <div className="flex items-start gap-2">
+                          <span className="text-blue-600 text-xs mt-1">•</span>
+                          <div>
+                            <h4 className="text-sm font-medium text-gray-800 hover:text-primary line-clamp-2">
+                              {item.title}
+                            </h4>
+                            <span className="text-xs text-purple-600 font-medium">{item.description}</span>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+                <div className="p-3 text-center border-t">
+                  <Link to="/sewayojan">
+                    <Button variant="outline" size="sm">View All Sewayojan</Button>
                   </Link>
                 </div>
               </div>
             </div>
 
             {/* Categories Grid */}
-            <div>
+            <div className="mt-8">
               <div className="section-header rounded-t-md">
                 <div className="flex items-center">
                   <Building className="w-5 h-5 mr-2" />
