@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Search, Bell } from "lucide-react";
@@ -12,10 +11,18 @@ const Header = () => {
       {/* News Ticker */}
       <div className="news-ticker">
         <div className="ticker-content">
-          <span className="mr-8">🔥 Latest Updates: Railway Group D Result 2024 Released</span>
-          <span className="mr-8">📢 Police Constable Recruitment 2024 - Apply Now</span>
-          <span className="mr-8">⚡ Bank PO Notification Out - Last Date Extended</span>
-          <span className="mr-8">📋 Teaching Staff Vacancy - 5000+ Posts Available</span>
+          <span className="mr-8">
+            🔥 Latest Updates: Railway Group D Result 2024 Released
+          </span>
+          <span className="mr-8">
+            📢 Police Constable Recruitment 2024 - Apply Now
+          </span>
+          <span className="mr-8">
+            ⚡ Bank PO Notification Out - Last Date Extended
+          </span>
+          <span className="mr-8">
+            📋 Teaching Staff Vacancy - 5000+ Posts Available
+          </span>
         </div>
       </div>
 
@@ -35,22 +42,46 @@ const Header = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
-              <Link to="/" className="text-foreground hover:text-primary transition-colors font-medium">
+              <Link
+                to="/"
+                className="text-slate-700 hover:text-primary transition-colors font-medium"
+              >
                 Home
               </Link>
-              <Link to="/category/all" className="text-foreground hover:text-primary transition-colors font-medium">
+              <Link
+                to="/job-forms"
+                className="text-slate-700 hover:text-primary transition-colors font-medium"
+              >
+                Job Forms
+              </Link>
+              <Link
+                to="/category/all"
+                className="text-slate-700 hover:text-primary transition-colors font-medium"
+              >
                 All Categories
               </Link>
-              <Link to="/category/latest" className="text-foreground hover:text-primary transition-colors font-medium">
+              <Link
+                to="/category/latest"
+                className="text-slate-700 hover:text-primary transition-colors font-medium"
+              >
                 Latest Jobs
               </Link>
-              <Link to="/category/results" className="text-foreground hover:text-primary transition-colors font-medium">
+              <Link
+                to="/category/results"
+                className="text-slate-700 hover:text-primary transition-colors font-medium"
+              >
                 Results
               </Link>
-              <Link to="/about" className="text-foreground hover:text-primary transition-colors font-medium">
+              <Link
+                to="/about"
+                className="text-slate-700 hover:text-primary transition-colors font-medium"
+              >
                 About
               </Link>
-              <Link to="/contact" className="text-foreground hover:text-primary transition-colors font-medium">
+              <Link
+                to="/contact"
+                className="text-slate-700 hover:text-primary transition-colors font-medium"
+              >
                 Contact
               </Link>
             </nav>
@@ -59,7 +90,9 @@ const Header = () => {
             <div className="hidden md:flex items-center space-x-2">
               <Button variant="ghost" size="sm" className="relative">
                 <Bell className="w-5 h-5" />
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                  3
+                </span>
               </Button>
             </div>
 
@@ -70,45 +103,56 @@ const Header = () => {
               className="md:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
             </Button>
           </div>
 
           {/* Mobile Navigation */}
           {isMenuOpen && (
-            <div className="md:hidden py-4 border-t border-border">
+            <div className="md:hidden py-4 border-t border-border bg-white">
               <nav className="flex flex-col space-y-4">
-                <Link 
-                  to="/" 
-                  className="text-foreground hover:text-primary transition-colors font-medium"
+                <Link
+                  to="/"
+                  className="text-slate-700 hover:text-primary transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Home
                 </Link>
-                <Link 
-                  to="/category/all" 
-                  className="text-foreground hover:text-primary transition-colors font-medium"
+                <Link
+                  to="/job-forms"
+                  className="text-slate-700 hover:text-primary transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Job Forms
+                </Link>
+                <Link
+                  to="/category/all"
+                  className="text-slate-700 hover:text-primary transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   All Categories
                 </Link>
-                <Link 
-                  to="/category/latest" 
-                  className="text-foreground hover:text-primary transition-colors font-medium"
+                <Link
+                  to="/category/latest"
+                  className="text-slate-700 hover:text-primary transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Latest Jobs
                 </Link>
-                <Link 
-                  to="/about" 
-                  className="text-foreground hover:text-primary transition-colors font-medium"
+                <Link
+                  to="/about"
+                  className="text-slate-700 hover:text-primary transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   About
                 </Link>
-                <Link 
-                  to="/contact" 
-                  className="text-foreground hover:text-primary transition-colors font-medium"
+                <Link
+                  to="/contact"
+                  className="text-slate-700 hover:text-primary transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Contact
