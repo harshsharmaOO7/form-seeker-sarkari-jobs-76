@@ -56,8 +56,13 @@ export interface JobData {
   syllabusLink: string;
 
   // Column Assignment (which column to show in main page)
-  columnType: "offline" | "online" | "sewayojan";
-  columnDescription: string;
+columnType: (() => {
+  const type = row[36]?.trim().toLowerCase();
+  const valid = ["offline", "online", "sewayojan"];
+  return valid.includes(type) ? (type as "offline" | "online" | "sewayojan") : "online";
+})(),
+//columnType: "offline" | "online" | "sewayojan";
+//  columnDescription: string;
 }
 
 export interface HomePageJobData {
