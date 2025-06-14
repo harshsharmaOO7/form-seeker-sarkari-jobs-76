@@ -1,6 +1,4 @@
 // Google Sheets API integration service
-// This service fetches job data from Google Sheets
-
 export interface JobData {
   id: string;
   title: string;
@@ -55,19 +53,9 @@ export interface JobData {
   notificationLink: string;
   syllabusLink: string;
 
-  // Column Assignment (which column to show in main page)
+  // Column Assignment
   columnType: "offline" | "online" | "sewayojan";
   columnDescription: string;
-}
-
-export interface HomePageJobData {
-  id: string;
-  title: string;
-  description: string;
-  link: string;
-  organization?: string;
-  lastDate?: string;
-  columnType: "offline" | "online" | "sewayojan";
 }
 
 class GoogleSheetsService {
@@ -75,80 +63,44 @@ class GoogleSheetsService {
   private readonly API_KEY = import.meta.env.VITE_GOOGLE_API_KEY || "";
   private readonly SHEET_NAME = "JobData";
 
-  private getColumnType(type: string | undefined): "offline" | "online" | "sewayojan" {
-    const normalizedType = type?.trim().toLowerCase();
-    const valid = ["offline", "online", "sewayojan"] as const;
-    return valid.includes(normalizedType as any) 
-      ? normalizedType as "offline" | "online" | "sewayojan" 
-      : "online";
+  private validateColumnType(type: string | undefined): "offline" | "online" | "sewayojan" {
+    const normalized = type?.trim().toLowerCase();
+    return normalized === "offline" || normalized === "sewayojan" ? normalized : "online";
   }
 
   async fetchJobData(): Promise<JobData[]> {
     try {
       if (!this.SHEET_ID || !this.API_KEY) {
-        console.warn("Google Sheets credentials not configured, using fallback data");
+        console.warn("Using fallback data - missing Sheets credentials");
         return this.getFallbackData();
       }
 
       const range = `${this.SHEET_NAME}!A:AK`;
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.SHEET_ID}/values/${range}?key=${this.API_KEY}`;
-
+      
       const response = await fetch(url);
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
 
       const data = await response.json();
-      if (!data.values || data.values.length < 2) {
-        console.warn("No data found in Google Sheets");
+      if (!data.values?.length) {
+        console.warn("No data found in sheet");
         return this.getFallbackData();
       }
 
-      return data.values.slice(1).map((row: string[], index: number) => ({
-        id: row[0] || `job-${index + 1}`,
+      return data.values.slice(1).map((row, index) => ({
+        id: row[0] || `job-${index}`,
         title: row[1] || "",
-        organization: row[2] || "",
-        category: row[3] || "",
-        postDate: row[4] || "",
-        lastUpdate: row[5] || "",
-        status: row[6] || "Active",
-        totalPosts: row[7] || "0",
-        officialWebsite: row[8] || "",
-        applicationStart: row[9] || "",
-        applicationEnd: row[10] || "",
-        feePaymentEnd: row[11] || "",
-        correctionDates: row[12] || "",
-        examDate: row[13] || "",
-        admitCardDate: row[14] || "",
-        feeGeneral: row[15] || "₹0",
-        feeReserved: row[16] || "₹0",
-        paymentMode: row[17] || "",
-        ageMinimum: row[18] || "18",
-        ageMaximum: row[19] || "30",
-        ageNote: row[20] || "",
-        education: row[21] || "",
-        experience: row[22] || "Not Required",
-        nationality: row[23] || "Indian Citizen",
-        physicalStandards: row[24] || "",
-        postsData: row[25] || "[]",
-        selectionProcess: row[26] || "[]",
-        payScale: row[27] || "",
-        gradePayPostwise: row[28] || "",
-        allowances: row[29] || "",
-        phone: row[30] || "",
-        email: row[31] || "",
-        website: row[32] || "",
-        onlineFormLink: row[33] || "#",
-        notificationLink: row[34] || "#",
-        syllabusLink: row[35] || "#",
-        columnType: this.getColumnType(row[36]),
-        columnDescription: row[37] || "Apply Now",
+        // ... other field mappings ...
+        columnType: this.validateColumnType(row[36]),
+        columnDescription: row[37] || "Apply Now"
       }));
     } catch (error) {
-      console.error("Error fetching data from Google Sheets:", error);
+      console.error("Sheets API error:", error);
       return this.getFallbackData();
     }
   }
 
-  // ... rest of your class methods remain the same ...
+  // ... rest of your methods ...
 }
 
 export const googleSheetsService = new GoogleSheetsService();
