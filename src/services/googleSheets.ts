@@ -1,4 +1,3 @@
-
 // Google Sheets API integration service
 export interface JobData {
   id: string;
@@ -57,6 +56,14 @@ export interface JobData {
   // Column Assignment
   columnType: "offline" | "online" | "sewayojan";
   columnDescription: string;
+}
+
+export interface HomePageJobData {
+  id: number | string;
+  title: string;
+  description: string;
+  link: string;
+  organization?: string;
 }
 
 class GoogleSheetsService {
@@ -193,6 +200,54 @@ class GoogleSheetsService {
     } catch (error) {
       console.error("Error getting jobs by column type:", error);
       return [];
+    }
+  }
+
+  async getHomePageData(): Promise<{
+    offline: HomePageJobData[];
+    online: HomePageJobData[];
+    sewayojan: HomePageJobData[];
+  }> {
+    try {
+      const jobs = await this.fetchJobData();
+      
+      const offline = jobs
+        .filter(job => job.columnType === "offline")
+        .slice(0, 5)
+        .map(job => ({
+          id: job.id,
+          title: job.title,
+          description: job.columnDescription || "Download Available",
+          link: `/job/${job.id}`,
+          organization: job.organization
+        }));
+
+      const online = jobs
+        .filter(job => job.columnType === "online")
+        .slice(0, 5)
+        .map(job => ({
+          id: job.id,
+          title: job.title,
+          description: job.columnDescription || "Apply Online",
+          link: `/job/${job.id}`,
+          organization: job.organization
+        }));
+
+      const sewayojan = jobs
+        .filter(job => job.columnType === "sewayojan")
+        .slice(0, 5)
+        .map(job => ({
+          id: job.id,
+          title: job.title,
+          description: job.columnDescription || "Apply Online",
+          link: `/job/${job.id}`,
+          organization: job.organization
+        }));
+
+      return { offline, online, sewayojan };
+    } catch (error) {
+      console.error("Error getting home page data:", error);
+      return { offline: [], online: [], sewayojan: [] };
     }
   }
 }
