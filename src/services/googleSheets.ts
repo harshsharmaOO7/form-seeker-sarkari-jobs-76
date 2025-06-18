@@ -1,3 +1,4 @@
+
 // Google Sheets API integration service
 export interface JobData {
   id: string;
@@ -71,36 +72,129 @@ class GoogleSheetsService {
   async fetchJobData(): Promise<JobData[]> {
     try {
       if (!this.SHEET_ID || !this.API_KEY) {
-        console.warn("Using fallback data - missing Sheets credentials");
-        return this.getFallbackData();
+        console.warn("Missing Google Sheets credentials");
+        return [];
       }
 
       const range = `${this.SHEET_NAME}!A:AK`;
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.SHEET_ID}/values/${range}?key=${this.API_KEY}`;
       
+      console.log("Fetching data from Google Sheets...");
       const response = await fetch(url);
-      if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-
-      const data = await response.json();
-      if (!data.values?.length) {
-        console.warn("No data found in sheet");
-        return this.getFallbackData();
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status} - ${response.statusText}`);
       }
 
-      return data.values.slice(1).map((row, index) => ({
+      const data = await response.json();
+      console.log("Raw sheet data:", data);
+
+      if (!data.values?.length) {
+        console.warn("No data found in sheet");
+        return [];
+      }
+
+      // Skip header row and map data
+      const jobs = data.values.slice(1).map((row: string[], index: number) => ({
         id: row[0] || `job-${index}`,
         title: row[1] || "",
-        // ... other field mappings ...
+        organization: row[2] || "",
+        category: row[3] || "",
+        postDate: row[4] || "",
+        lastUpdate: row[5] || "",
+        status: row[6] || "Active",
+        totalPosts: row[7] || "",
+        officialWebsite: row[8] || "",
+        
+        // Important Dates
+        applicationStart: row[9] || "",
+        applicationEnd: row[10] || "",
+        feePaymentEnd: row[11] || "",
+        correctionDates: row[12] || "",
+        examDate: row[13] || "",
+        admitCardDate: row[14] || "",
+        
+        // Application Fee
+        feeGeneral: row[15] || "",
+        feeReserved: row[16] || "",
+        paymentMode: row[17] || "",
+        
+        // Age & Eligibility
+        ageMinimum: row[18] || "",
+        ageMaximum: row[19] || "",
+        ageNote: row[20] || "",
+        education: row[21] || "",
+        experience: row[22] || "",
+        nationality: row[23] || "",
+        physicalStandards: row[24] || "",
+        
+        // Post Details (JSON string)
+        postsData: row[25] || "[]",
+        
+        // Selection Process (JSON string)
+        selectionProcess: row[26] || "[]",
+        
+        // Salary
+        payScale: row[27] || "",
+        gradePayPostwise: row[28] || "",
+        allowances: row[29] || "",
+        
+        // Contact Info
+        phone: row[30] || "",
+        email: row[31] || "",
+        website: row[32] || "",
+        
+        // Links
+        onlineFormLink: row[33] || "",
+        notificationLink: row[34] || "",
+        syllabusLink: row[35] || "",
+        
+        // Column Assignment
         columnType: this.validateColumnType(row[36]),
         columnDescription: row[37] || "Apply Now"
       }));
+
+      console.log("Processed jobs data:", jobs);
+      return jobs;
     } catch (error) {
-      console.error("Sheets API error:", error);
-      return this.getFallbackData();
+      console.error("Error fetching from Google Sheets:", error);
+      return [];
     }
   }
 
-  // ... rest of your methods ...
+  async getJobById(jobId: string): Promise<JobData | null> {
+    try {
+      const jobs = await this.fetchJobData();
+      const job = jobs.find(job => job.id === jobId);
+      console.log(`Looking for job with ID: ${jobId}`, job);
+      return job || null;
+    } catch (error) {
+      console.error("Error getting job by ID:", error);
+      return null;
+    }
+  }
+
+  async getJobsByCategory(category: string): Promise<JobData[]> {
+    try {
+      const jobs = await this.fetchJobData();
+      return jobs.filter(job => 
+        job.category.toLowerCase().includes(category.toLowerCase())
+      );
+    } catch (error) {
+      console.error("Error getting jobs by category:", error);
+      return [];
+    }
+  }
+
+  async getJobsByColumnType(columnType: "offline" | "online" | "sewayojan"): Promise<JobData[]> {
+    try {
+      const jobs = await this.fetchJobData();
+      return jobs.filter(job => job.columnType === columnType);
+    } catch (error) {
+      console.error("Error getting jobs by column type:", error);
+      return [];
+    }
+  }
 }
 
 export const googleSheetsService = new GoogleSheetsService();
