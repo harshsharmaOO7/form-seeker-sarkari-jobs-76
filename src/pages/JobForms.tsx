@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useParams } from "react-router-dom";
 import {
   Calendar,
   FileText,
@@ -26,7 +26,8 @@ import { googleSheetsService, JobData } from "@/services/googleSheets";
 
 const JobForms = () => {
   const [searchParams] = useSearchParams();
-  const jobId = searchParams.get("id") || "railway-group-d-2025"; // Default job ID
+  const { jobId: urlJobId } = useParams();
+  const jobId = urlJobId || searchParams.get("id") || "railway-group-d-2025"; // Check URL param first, then query param, then default
 
   const [jobData, setJobData] = useState<JobData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -199,7 +200,7 @@ const JobForms = () => {
               Job Forms
             </Link>
             <span>/</span>
-            <span className="text-gray-800">Railway Group D 2025</span>
+            <span className="text-gray-800">{jobData?.title || "Job Details"}</span>
           </div>
         </div>
       </div>
