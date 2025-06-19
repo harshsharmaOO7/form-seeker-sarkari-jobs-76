@@ -1,31 +1,21 @@
+
 import { useState, useEffect } from "react";
 import { Link, useSearchParams, useParams } from "react-router-dom";
 import {
-  Calendar,
-  FileText,
   Download,
-  Building,
-  MapPin,
-  Users,
-  Clock,
-  IndianRupee,
-  GraduationCap,
-  Phone,
-  Mail,
+  FileText,
   Globe,
+  MessageCircle
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { offlineGoogleSheetsService, OfflineJobData } from "@/services/offlineGoogleSheets";
 
 const OfflineJobForms = () => {
   const [searchParams] = useSearchParams();
   const { jobId: urlJobId } = useParams();
-  const jobId = urlJobId || searchParams.get("id") || "railway-group-d-2025";
+  const jobId = urlJobId || searchParams.get("id") || "echs-gramtik-2025";
 
   const [jobData, setJobData] = useState<OfflineJobData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -114,9 +104,15 @@ const OfflineJobForms = () => {
         <div className="max-w-4xl mx-auto">
           {/* Official Header - Government Style */}
           <div className="bg-white border-2 border-gray-800 mb-6">
-            {/* Top Header */}
+            {/* Header with organization info */}
+            <div className="bg-blue-100 border-b border-gray-400 p-2 text-center">
+              <div className="text-green-700 font-bold text-sm">निदेश का थलापुरक पूत्र आवश्य पढ़े</div>
+              <div className="text-red-600 font-bold text-sm">अंतिम तिथि : {jobData.applicationEnd}</div>
+            </div>
+
+            {/* Main Blue Header */}
             <div className="bg-blue-600 text-white text-center py-2">
-              <div className="text-sm font-bold">EX-SERVICEMAN CONTRIBUTORY HEALTH SCHEME</div>
+              <div className="text-lg font-bold">{jobData.organization}</div>
               <div className="text-xs">UNOFFICIAL INSTRUCTIONS FOR CANDIDATE, FOR COMPLETE DETAILS CHECK OFFICIAL NOTIFICATION</div>
             </div>
 
@@ -130,7 +126,7 @@ const OfflineJobForms = () => {
               <div className="font-semibold">GOVT OF INDIA, {jobData.organization}</div>
             </div>
 
-            {/* Important Info Bar */}
+            {/* Job Type and Details */}
             <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white text-center py-2">
               <div className="font-bold text-lg">{posts[0]?.position || jobData.title}</div>
             </div>
@@ -149,7 +145,7 @@ const OfflineJobForms = () => {
               <tbody>
                 <tr className="border-b border-gray-400">
                   <td className="bg-gray-200 font-semibold p-3 border-r border-gray-400 w-1/4">पद का नाम</td>
-                  <td className="p-3 border-r border-gray-400">{posts[0]?.position}</td>
+                  <td className="p-3 border-r border-gray-400">{posts[0]?.position || jobData.title}</td>
                   <td className="bg-gray-200 font-semibold p-3 border-r border-gray-400">योग्यता</td>
                   <td className="p-3">{jobData.education}</td>
                 </tr>
@@ -192,54 +188,58 @@ const OfflineJobForms = () => {
 
           {/* Application Process */}
           <div className="bg-white border border-gray-400 p-4 mb-6">
-            <h3 className="font-bold text-lg mb-3 text-red-600">आवेदन कैसे करें - How to Apply Online:</h3>
+            <h3 className="font-bold text-lg mb-3 text-red-600">आवेदन कैसे करें - How to Apply:</h3>
             <div className="space-y-2 text-sm">
-              <p>• आवेदकों को सबसे पहले ऑनलाइन आवेदन करना होगा।</p>
-              <p>• इसके बाद अपने सभी जरूरी दस्तावेजों को अपलोड करना होगा।</p>
+              <p>• आवेदकों को सबसे पहले ऑफलाइन आवेदन करना होगा।</p>
+              <p>• इसके बाद अपने सभी जरूरी दस्तावेजों को संलग्न करना होगा।</p>
               <p>• सभी जानकारी सही से भरने के बाद फीस का भुगतान करना होगा।</p>
               <p>• आवेदन की अंतिम तिथि <strong className="text-red-600">{jobData.applicationEnd}</strong> है।</p>
             </div>
           </div>
 
           {/* Selection Process */}
-          <div className="bg-white border border-gray-400 p-4 mb-6">
-            <h3 className="font-bold text-lg mb-3 text-blue-600">चयन प्रक्रिया - Selection Process:</h3>
-            <div className="space-y-2 text-sm">
-              {selectionProcess.map((step, index) => (
-                <div key={index} className="flex items-start">
-                  <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5">
-                    {index + 1}
-                  </span>
-                  <span>{step}</span>
-                </div>
-              ))}
+          {selectionProcess.length > 0 && (
+            <div className="bg-white border border-gray-400 p-4 mb-6">
+              <h3 className="font-bold text-lg mb-3 text-blue-600">चयन प्रक्रिया - Selection Process:</h3>
+              <div className="space-y-2 text-sm">
+                {selectionProcess.map((step, index) => (
+                  <div key={index} className="flex items-start">
+                    <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5">
+                      {index + 1}
+                    </span>
+                    <span>{step}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Post-wise Details */}
-          <div className="bg-white border border-gray-400 mb-6 overflow-x-auto">
-            <div className="bg-gray-200 p-3 font-bold text-center">पदवार विवरण - Post Wise Details</div>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border border-gray-400 p-2">क्र.सं.</th>
-                  <th className="border border-gray-400 p-2">पद का नाम</th>
-                  <th className="border border-gray-400 p-2">कुल पद</th>
-                  <th className="border border-gray-400 p-2">योग्यता</th>
-                </tr>
-              </thead>
-              <tbody>
-                {posts.map((post, index) => (
-                  <tr key={index} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                    <td className="border border-gray-400 p-2 text-center">{index + 1}</td>
-                    <td className="border border-gray-400 p-2">{post.position}</td>
-                    <td className="border border-gray-400 p-2 text-center font-bold text-blue-600">{post.vacancies}</td>
-                    <td className="border border-gray-400 p-2">{post.eligibility}</td>
+          {posts.length > 0 && (
+            <div className="bg-white border border-gray-400 mb-6 overflow-x-auto">
+              <div className="bg-gray-200 p-3 font-bold text-center">पदवार विवरण - Post Wise Details</div>
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="border border-gray-400 p-2">क्र.सं.</th>
+                    <th className="border border-gray-400 p-2">पद का नाम</th>
+                    <th className="border border-gray-400 p-2">कुल पद</th>
+                    <th className="border border-gray-400 p-2">योग्यता</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {posts.map((post, index) => (
+                    <tr key={index} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                      <td className="border border-gray-400 p-2 text-center">{index + 1}</td>
+                      <td className="border border-gray-400 p-2">{post.position}</td>
+                      <td className="border border-gray-400 p-2 text-center font-bold text-blue-600">{post.vacancies}</td>
+                      <td className="border border-gray-400 p-2">{post.eligibility}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
 
           {/* Website Footer */}
           <div className="bg-red-600 text-white text-center py-3 rounded mb-6">
@@ -247,20 +247,32 @@ const OfflineJobForms = () => {
             <div className="text-sm">Join Telegram | https://telegram.me/singhalprakashan | SP/June/39 | SINGHAL PRAKASHAN REGD. NO. H1J130</div>
           </div>
 
-          {/* Download Links */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Button className="w-full bg-red-600 hover:bg-red-700 py-3">
-              <Download className="w-4 h-4 mr-2" />
-              Download Application
-            </Button>
-            <Button variant="outline" className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 py-3">
-              <FileText className="w-4 h-4 mr-2" />
-              Official Notification
-            </Button>
-            <Button variant="outline" className="w-full py-3">
-              <Globe className="w-4 h-4 mr-2" />
-              Official Website
-            </Button>
+          {/* Quick Links - Moved to Bottom */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {jobData.onlineFormLink && (
+              <Button className="w-full bg-red-600 hover:bg-red-700 py-3">
+                <Download className="w-4 h-4 mr-2" />
+                Download Application
+              </Button>
+            )}
+            {jobData.notificationLink && (
+              <Button variant="outline" className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 py-3">
+                <FileText className="w-4 h-4 mr-2" />
+                Official Notification
+              </Button>
+            )}
+            {jobData.telegramLink && (
+              <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-50 py-3">
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Join Telegram
+              </Button>
+            )}
+            {jobData.officialWebsite && (
+              <Button variant="outline" className="w-full py-3">
+                <Globe className="w-4 h-4 mr-2" />
+                Official Website
+              </Button>
+            )}
           </div>
         </div>
       </div>

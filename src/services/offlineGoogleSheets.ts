@@ -15,9 +15,7 @@ export interface OfflineJobData {
   applicationStart: string;
   applicationEnd: string;
   feePaymentEnd: string;
-  correctionDates: string;
   examDate: string;
-  admitCardDate: string;
 
   // Application Fee
   feeGeneral: string;
@@ -27,11 +25,8 @@ export interface OfflineJobData {
   // Age & Eligibility
   ageMinimum: string;
   ageMaximum: string;
-  ageNote: string;
   education: string;
-  experience: string;
   nationality: string;
-  physicalStandards: string;
 
   // Post Details (JSON string)
   postsData: string;
@@ -41,8 +36,6 @@ export interface OfflineJobData {
 
   // Salary
   payScale: string;
-  gradePayPostwise: string;
-  allowances: string;
 
   // Contact Info
   phone: string;
@@ -52,7 +45,7 @@ export interface OfflineJobData {
   // Links
   onlineFormLink: string;
   notificationLink: string;
-  syllabusLink: string;
+  telegramLink: string;
 
   // Column Description
   columnDescription: string;
@@ -70,7 +63,7 @@ class OfflineGoogleSheetsService {
         return [];
       }
 
-      const range = `${this.SHEET_NAME}!A:AK`;
+      const range = `${this.SHEET_NAME}!A:Z`;
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.SHEET_ID}/values/${range}?key=${this.API_KEY}`;
       
       console.log("Fetching offline jobs data from Google Sheets...");
@@ -104,47 +97,40 @@ class OfflineGoogleSheetsService {
         applicationStart: row[9] || "",
         applicationEnd: row[10] || "",
         feePaymentEnd: row[11] || "",
-        correctionDates: row[12] || "",
-        examDate: row[13] || "",
-        admitCardDate: row[14] || "",
+        examDate: row[12] || "",
         
         // Application Fee
-        feeGeneral: row[15] || "",
-        feeReserved: row[16] || "",
-        paymentMode: row[17] || "",
+        feeGeneral: row[13] || "",
+        feeReserved: row[14] || "",
+        paymentMode: row[15] || "",
         
         // Age & Eligibility
-        ageMinimum: row[18] || "",
-        ageMaximum: row[19] || "",
-        ageNote: row[20] || "",
-        education: row[21] || "",
-        experience: row[22] || "",
-        nationality: row[23] || "",
-        physicalStandards: row[24] || "",
+        ageMinimum: row[16] || "",
+        ageMaximum: row[17] || "",
+        education: row[18] || "",
+        nationality: row[19] || "",
         
         // Post Details (JSON string)
-        postsData: row[25] || "[]",
+        postsData: row[20] || "[]",
         
         // Selection Process (JSON string)
-        selectionProcess: row[26] || "[]",
+        selectionProcess: row[21] || "[]",
         
         // Salary
-        payScale: row[27] || "",
-        gradePayPostwise: row[28] || "",
-        allowances: row[29] || "",
+        payScale: row[22] || "",
         
         // Contact Info
-        phone: row[30] || "",
-        email: row[31] || "",
-        website: row[32] || "",
+        phone: row[23] || "",
+        email: row[24] || "",
+        website: row[25] || "",
         
         // Links
-        onlineFormLink: row[33] || "",
-        notificationLink: row[34] || "",
-        syllabusLink: row[35] || "",
+        onlineFormLink: row[26] || "",
+        notificationLink: row[27] || "",
+        telegramLink: row[28] || "",
         
         // Column Description
-        columnDescription: row[36] || "Download Available"
+        columnDescription: row[29] || "Download Available"
       }));
 
       console.log("Processed offline jobs data:", jobs);
