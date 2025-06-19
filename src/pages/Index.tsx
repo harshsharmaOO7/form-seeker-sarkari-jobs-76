@@ -146,51 +146,6 @@ const Index = () => {
     },
   ];
 
-  const categories = [
-    {
-      name: "Police Jobs",
-      icon: Shield,
-      count: "125+ Active",
-      color: "bg-blue-50 text-blue-700 border-blue-200",
-      path: "/category/police",
-    },
-    {
-      name: "Railway Jobs",
-      icon: Train,
-      count: "89+ Active",
-      color: "bg-green-50 text-green-700 border-green-200",
-      path: "/category/railway",
-    },
-    {
-      name: "Bank Jobs",
-      icon: CreditCard,
-      count: "67+ Active",
-      color: "bg-purple-50 text-purple-700 border-purple-200",
-      path: "/category/banking",
-    },
-    {
-      name: "Teaching",
-      icon: GraduationCap,
-      count: "156+ Active",
-      color: "bg-orange-50 text-orange-700 border-orange-200",
-      path: "/category/teaching",
-    },
-    {
-      name: "Defence",
-      icon: Flag,
-      count: "78+ Active",
-      color: "bg-red-50 text-red-700 border-red-200",
-      path: "/category/defence",
-    },
-    {
-      name: "SSC Jobs",
-      icon: FileText,
-      count: "45+ Active",
-      color: "bg-indigo-50 text-indigo-700 border-indigo-200",
-      path: "/category/ssc",
-    },
-  ];
-
   const quickStats = [
     { label: "Total Jobs", value: "2,458", icon: FileText },
     { label: "Active Today", value: "127", icon: TrendingUp },
@@ -364,119 +319,95 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Categories Grid */}
-            <div className="mt-8">
-              <div className="section-header rounded-t-md">
-                <div className="flex items-center">
-                  <Building className="w-5 h-5 mr-2" />
-                  Job Categories
-                </div>
-              </div>
-              <div className="bg-white border border-t-0 rounded-b-md p-6">
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {categories.map((category) => (
-                    <Link key={category.name} to={category.path}>
-                      <Card
-                        className={`text-center hover:shadow-md transition-all duration-200 border-2 ${category.color} bg-white`}
-                      >
-                        <CardContent className="p-4">
-                          <div className="flex flex-col items-center">
-                            <category.icon className="w-8 h-8 mb-2" />
-                            <h3 className="font-semibold text-sm mb-1">
-                              {category.name}
-                            </h3>
-                            <p className="text-xs opacity-75">
-                              {category.count}
-                            </p>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+            {/* Advertisement Space (where categories used to be) */}
+            <div className="mt-8 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-16 text-center">
+              <p className="text-gray-500 text-lg">Advertisement Space</p>
+              <p className="text-gray-400 text-sm mt-2">728x90 Banner Ads</p>
             </div>
           </div>
 
-          {/* Sidebar */}
+          {/* Sidebar - Advertisement Space */}
           <div className="lg:col-span-1">
-            {/* Important Links */}
-            <div className="mb-6">
-              <div className="section-header rounded-t-md">Important Links</div>
-              <div className="bg-white border border-t-0 rounded-b-md p-4">
-                <div className="space-y-2">
-                  <a
-                    href="#"
-                    className="block text-sm text-slate-700 hover:text-primary py-1 border-b border-border/50"
-                  >
-                    📋 Admit Card Downloads
-                  </a>
-                  <a
-                    href="#"
-                    className="block text-sm text-slate-700 hover:text-primary py-1 border-b border-border/50"
-                  >
-                    📊 Latest Results
-                  </a>
-                  <a
-                    href="#"
-                    className="block text-sm text-slate-700 hover:text-primary py-1 border-b border-border/50"
-                  >
-                    📝 Application Forms
-                  </a>
-                  <a
-                    href="#"
-                    className="block text-sm text-slate-700 hover:text-primary py-1 border-b border-border/50"
-                  >
-                    📅 Exam Calendar
-                  </a>
-                  <a
-                    href="#"
-                    className="block text-sm text-slate-700 hover:text-primary py-1"
-                  >
-                    ❓ Help & Support
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Updates */}
-            <div className="mb-6">
-              <div className="section-header rounded-t-md">Quick Updates</div>
-              <div className="bg-white border border-t-0 rounded-b-md p-4">
-                <div className="space-y-3">
-                  <div className="text-sm">
-                    <div className="font-medium text-slate-800">
-                      Railway Result 2024
-                    </div>
-                    <div className="text-slate-600 text-xs">
-                      Published 2 hours ago
-                    </div>
-                  </div>
-                  <div className="text-sm">
-                    <div className="font-medium text-slate-800">
-                      Police Admit Card
-                    </div>
-                    <div className="text-slate-600 text-xs">
-                      Published 5 hours ago
-                    </div>
-                  </div>
-                  <div className="text-sm">
-                    <div className="font-medium text-slate-800">
-                      Bank PO Notification
-                    </div>
-                    <div className="text-slate-600 text-xs">
-                      Published 1 day ago
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Advertisement Space */}
             <div className="bg-muted/20 border-2 border-dashed border-border rounded-md p-8 text-center">
               <p className="text-muted-foreground text-sm">
                 Advertisement Space
               </p>
+              <p className="text-muted-foreground text-xs mt-1">300x600 Sidebar</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section - Important Links and Quick Updates */}
+        <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Important Links - Moved to Bottom */}
+          <div>
+            <div className="section-header rounded-t-md">Important Links</div>
+            <div className="bg-white border border-t-0 rounded-b-md p-4">
+              <div className="space-y-2">
+                <a
+                  href="#"
+                  className="block text-sm text-slate-700 hover:text-primary py-1 border-b border-border/50"
+                >
+                  📋 Admit Card Downloads
+                </a>
+                <a
+                  href="#"
+                  className="block text-sm text-slate-700 hover:text-primary py-1 border-b border-border/50"
+                >
+                  📊 Latest Results
+                </a>
+                <a
+                  href="#"
+                  className="block text-sm text-slate-700 hover:text-primary py-1 border-b border-border/50"
+                >
+                  📝 Application Forms
+                </a>
+                <a
+                  href="#"
+                  className="block text-sm text-slate-700 hover:text-primary py-1 border-b border-border/50"
+                >
+                  📅 Exam Calendar
+                </a>
+                <a
+                  href="#"
+                  className="block text-sm text-slate-700 hover:text-primary py-1"
+                >
+                  ❓ Help & Support
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Updates - Moved to Bottom */}
+          <div>
+            <div className="section-header rounded-t-md">Quick Updates</div>
+            <div className="bg-white border border-t-0 rounded-b-md p-4">
+              <div className="space-y-3">
+                <div className="text-sm">
+                  <div className="font-medium text-slate-800">
+                    Railway Result 2024
+                  </div>
+                  <div className="text-slate-600 text-xs">
+                    Published 2 hours ago
+                  </div>
+                </div>
+                <div className="text-sm">
+                  <div className="font-medium text-slate-800">
+                    Police Admit Card
+                  </div>
+                  <div className="text-slate-600 text-xs">
+                    Published 5 hours ago
+                  </div>
+                </div>
+                <div className="text-sm">
+                  <div className="font-medium text-slate-800">
+                    Bank PO Notification
+                  </div>
+                  <div className="text-slate-600 text-xs">
+                    Published 1 day ago
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
