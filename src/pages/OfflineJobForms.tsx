@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useSearchParams, useParams } from "react-router-dom";
 import {
@@ -21,14 +20,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { googleSheetsService, JobData } from "@/services/googleSheets";
+import { offlineGoogleSheetsService, OfflineJobData } from "@/services/offlineGoogleSheets";
 
 const OfflineJobForms = () => {
   const [searchParams] = useSearchParams();
   const { jobId: urlJobId } = useParams();
   const jobId = urlJobId || searchParams.get("id") || "railway-group-d-2025";
 
-  const [jobData, setJobData] = useState<JobData | null>(null);
+  const [jobData, setJobData] = useState<OfflineJobData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -36,15 +35,15 @@ const OfflineJobForms = () => {
     const fetchJobData = async () => {
       try {
         setLoading(true);
-        const data = await googleSheetsService.getJobById(jobId);
+        const data = await offlineGoogleSheetsService.getOfflineJobById(jobId);
         if (data) {
           setJobData(data);
         } else {
-          setError("Job not found");
+          setError("Offline job not found");
         }
       } catch (err) {
-        setError("Failed to load job data");
-        console.error("Error fetching job data:", err);
+        setError("Failed to load offline job data");
+        console.error("Error fetching offline job data:", err);
       } finally {
         setLoading(false);
       }
@@ -59,7 +58,7 @@ const OfflineJobForms = () => {
         <Header />
         <div className="container mx-auto px-4 py-12 text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading job details...</p>
+          <p className="mt-4 text-gray-600">Loading offline job details...</p>
         </div>
         <Footer />
       </div>
@@ -72,7 +71,7 @@ const OfflineJobForms = () => {
         <Header />
         <div className="container mx-auto px-4 py-12 text-center">
           <div className="text-red-600 text-xl mb-4">
-            ⚠️ {error || "Job not found"}
+            ⚠️ {error || "Offline job not found"}
           </div>
           <Link to="/">
             <Button>Go Back to Home</Button>

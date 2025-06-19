@@ -1,5 +1,6 @@
-// Google Sheets API integration service
-export interface JobData {
+
+// Dedicated Google Sheets service for offline jobs (Sheet 2)
+export interface OfflineJobData {
   id: string;
   title: string;
   organization: string;
@@ -53,42 +54,26 @@ export interface JobData {
   notificationLink: string;
   syllabusLink: string;
 
-  // Column Assignment
-  columnType: "offline" | "online" | "sewayojan";
+  // Column Description
   columnDescription: string;
 }
 
-export interface HomePageJobData {
-  id: number | string;
-  title: string;
-  description: string;
-  link: string;
-  organization?: string;
-}
-
-import { offlineGoogleSheetsService } from "./offlineGoogleSheets";
-
-class GoogleSheetsService {
+class OfflineGoogleSheetsService {
   private readonly SHEET_ID = import.meta.env.VITE_GOOGLE_SHEET_ID || "";
   private readonly API_KEY = import.meta.env.VITE_GOOGLE_API_KEY || "";
-  private readonly SHEET_NAME = "JobData";
+  private readonly SHEET_NAME = "OfflineJobs"; // Sheet 2 name
 
-  private validateColumnType(type: string | undefined): "offline" | "online" | "sewayojan" {
-    const normalized = type?.trim().toLowerCase();
-    return normalized === "offline" || normalized === "sewayojan" ? normalized : "online";
-  }
-
-  async fetchJobData(): Promise<JobData[]> {
+  async fetchOfflineJobData(): Promise<OfflineJobData[]> {
     try {
       if (!this.SHEET_ID || !this.API_KEY) {
-        console.warn("Missing Google Sheets credentials");
+        console.warn("Missing Google Sheets credentials for offline jobs");
         return [];
       }
 
       const range = `${this.SHEET_NAME}!A:AK`;
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.SHEET_ID}/values/${range}?key=${this.API_KEY}`;
       
-      console.log("Fetching data from Google Sheets...");
+      console.log("Fetching offline jobs data from Google Sheets...");
       const response = await fetch(url);
       
       if (!response.ok) {
@@ -96,16 +81,16 @@ class GoogleSheetsService {
       }
 
       const data = await response.json();
-      console.log("Raw sheet data:", data);
+      console.log("Raw offline jobs sheet data:", data);
 
       if (!data.values?.length) {
-        console.warn("No data found in sheet");
+        console.warn("No offline jobs data found in sheet");
         return [];
       }
 
       // Skip header row and map data
       const jobs = data.values.slice(1).map((row: string[], index: number) => ({
-        id: row[0] || `job-${index}`,
+        id: row[0] || `offline-job-${index}`,
         title: row[1] || "",
         organization: row[2] || "",
         category: row[3] || "",
@@ -158,103 +143,41 @@ class GoogleSheetsService {
         notificationLink: row[34] || "",
         syllabusLink: row[35] || "",
         
-        // Column Assignment
-        columnType: this.validateColumnType(row[36]),
-        columnDescription: row[37] || "Apply Now"
+        // Column Description
+        columnDescription: row[36] || "Download Available"
       }));
 
-      console.log("Processed jobs data:", jobs);
+      console.log("Processed offline jobs data:", jobs);
       return jobs;
     } catch (error) {
-      console.error("Error fetching from Google Sheets:", error);
+      console.error("Error fetching offline jobs from Google Sheets:", error);
       return [];
     }
   }
 
-  async getJobById(jobId: string): Promise<JobData | null> {
+  async getOfflineJobById(jobId: string): Promise<OfflineJobData | null> {
     try {
-      const jobs = await this.fetchJobData();
+      const jobs = await this.fetchOfflineJobData();
       const job = jobs.find(job => job.id === jobId);
-      console.log(`Looking for job with ID: ${jobId}`, job);
+      console.log(`Looking for offline job with ID: ${jobId}`, job);
       return job || null;
     } catch (error) {
-      console.error("Error getting job by ID:", error);
+      console.error("Error getting offline job by ID:", error);
       return null;
     }
   }
 
-  async getJobsByCategory(category: string): Promise<JobData[]> {
+  async getOfflineJobsByCategory(category: string): Promise<OfflineJobData[]> {
     try {
-      const jobs = await this.fetchJobData();
+      const jobs = await this.fetchOfflineJobData();
       return jobs.filter(job => 
         job.category.toLowerCase().includes(category.toLowerCase())
       );
     } catch (error) {
-      console.error("Error getting jobs by category:", error);
+      console.error("Error getting offline jobs by category:", error);
       return [];
-    }
-  }
-
-  async getJobsByColumnType(columnType: "offline" | "online" | "sewayojan"): Promise<JobData[]> {
-    try {
-      const jobs = await this.fetchJobData();
-      return jobs.filter(job => job.columnType === columnType);
-    } catch (error) {
-      console.error("Error getting jobs by column type:", error);
-      return [];
-    }
-  }
-
-  async getHomePageData(): Promise<{
-    offline: HomePageJobData[];
-    online: HomePageJobData[];
-    sewayojan: HomePageJobData[];
-  }> {
-    try {
-      // Get online jobs from main sheet
-      const onlineJobs = await this.fetchJobData();
-      
-      // Get offline jobs from dedicated sheet
-      const offlineJobsData = await offlineGoogleSheetsService.fetchOfflineJobData();
-      
-      const offline = offlineJobsData
-        .slice(0, 5)
-        .map(job => ({
-          id: job.id,
-          title: job.title,
-          description: job.columnDescription || "Download Available",
-          link: `/offline/${job.id}`,
-          organization: job.organization
-        }));
-
-      const online = onlineJobs
-        .filter(job => job.columnType === "online")
-        .slice(0, 5)
-        .map(job => ({
-          id: job.id,
-          title: job.title,
-          description: job.columnDescription || "Apply Online",
-          link: `/job/${job.id}`,
-          organization: job.organization
-        }));
-
-      const sewayojan = onlineJobs
-        .filter(job => job.columnType === "sewayojan")
-        .slice(0, 5)
-        .map(job => ({
-          id: job.id,
-          title: job.title,
-          description: job.columnDescription || "Apply Online",
-          link: `/job/${job.id}`,
-          organization: job.organization
-        }));
-
-      return { offline, online, sewayojan };
-    } catch (error) {
-      console.error("Error getting home page data:", error);
-      return { offline: [], online: [], sewayojan: [] };
     }
   }
 }
 
-export const googleSheetsService = new GoogleSheetsService();
+export const offlineGoogleSheetsService = new OfflineGoogleSheetsService();
