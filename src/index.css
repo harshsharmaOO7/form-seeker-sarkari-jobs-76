@@ -55,10 +55,10 @@
     --info: 59 130 246;
     --info-foreground: 255 255 255;
 
-    /* Better yellow colors for readability */
-    --yellow-soft: 254 243 199;
-    --yellow-text: 146 64 14;
-    --yellow-border: 251 191 36;
+    /* Fixed yellow colors for better readability - dark background with light text */
+    --yellow-bg: 255 193 7;
+    --yellow-text: 17 24 39;
+    --yellow-border: 245 158 11;
   }
 
   .dark {
@@ -132,9 +132,9 @@
     @apply inline-block bg-accent text-accent-foreground px-2 py-1 rounded text-xs font-medium;
   }
 
-  /* Improved yellow styling for better readability */
-  .yellow-soft {
-    background-color: hsl(var(--yellow-soft));
+  /* Fixed yellow styling with proper contrast */
+  .yellow-section {
+    background-color: hsl(var(--yellow-bg));
     color: hsl(var(--yellow-text));
     border-color: hsl(var(--yellow-border));
   }

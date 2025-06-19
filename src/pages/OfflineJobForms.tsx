@@ -94,7 +94,7 @@ const OfflineJobForms = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <Header />
 
       {/* Breadcrumb */}
@@ -105,223 +105,164 @@ const OfflineJobForms = () => {
             <span>/</span>
             <Link to="/job-forms" className="hover:text-primary">Offline Forms</Link>
             <span>/</span>
-            <span className="text-gray-800">{jobData?.title || "Job Details"}</span>
+            <span className="text-gray-800">{jobData?.title}</span>
           </div>
         </div>
       </div>
 
-      {/* Main Content - Offline Layout */}
+      {/* Government Style Notification */}
       <div className="container mx-auto px-4 py-6">
-        <div className="max-w-4xl mx-auto space-y-6">
-          {/* Job Header - Offline Style */}
-          <Card className="bg-white border-2 border-orange-200">
-            <CardHeader className="bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-t-lg">
-              <div className="text-center">
-                <Badge className="bg-red-700 text-white mb-2">OFFLINE FORM</Badge>
-                <CardTitle className="text-2xl font-bold mb-2">
-                  {jobData.title}
-                </CardTitle>
-                <div className="text-lg opacity-90">{jobData.organization}</div>
-                <div className="flex justify-center items-center gap-4 text-sm mt-2">
-                  <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    Posted: {jobData.postDate}
-                  </div>
-                  <div className="flex items-center">
-                    <Users className="w-4 h-4 mr-1" />
-                    {jobData.totalPosts} Posts
-                  </div>
-                </div>
-              </div>
-            </CardHeader>
+        <div className="max-w-4xl mx-auto">
+          {/* Official Header - Government Style */}
+          <div className="bg-white border-2 border-gray-800 mb-6">
+            {/* Top Header */}
+            <div className="bg-blue-600 text-white text-center py-2">
+              <div className="text-sm font-bold">EX-SERVICEMAN CONTRIBUTORY HEALTH SCHEME</div>
+              <div className="text-xs">UNOFFICIAL INSTRUCTIONS FOR CANDIDATE, FOR COMPLETE DETAILS CHECK OFFICIAL NOTIFICATION</div>
+            </div>
 
-            <CardContent className="p-6">
-              <Alert className="mb-4 border-red-200 bg-red-50">
-                <Clock className="w-4 h-4" />
-                <AlertDescription className="text-red-800">
-                  <strong>Download Form Before:</strong> {jobData.applicationEnd} | 
-                  <strong> Submit By:</strong> {jobData.feePaymentEnd}
-                </AlertDescription>
-              </Alert>
+            {/* Main Title */}
+            <div className="bg-black text-white text-center py-4">
+              <h1 className="text-2xl md:text-3xl font-bold tracking-wider">{jobData.title}</h1>
+            </div>
 
-              {/* Offline Form Details */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
-                <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                  <h3 className="font-semibold text-gray-800 mb-2">Form Download</h3>
-                  <p className="text-sm text-gray-600 mb-3">Download the application form and fill it manually</p>
-                  <Button className="w-full bg-orange-600 hover:bg-orange-700">
-                    <Download className="w-4 h-4 mr-2" />
-                    Download Form PDF
-                  </Button>
-                </div>
-                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                  <h3 className="font-semibold text-gray-800 mb-2">Submission</h3>
-                  <p className="text-sm text-gray-600 mb-3">Submit by post or in person</p>
-                  <Button variant="outline" className="w-full border-blue-200 text-blue-600">
-                    <FileText className="w-4 h-4 mr-2" />
-                    View Instructions
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+            {/* Organization Details */}
+            <div className="bg-green-600 text-white text-center py-2">
+              <div className="font-semibold">GOVT OF INDIA, {jobData.organization}</div>
+            </div>
 
-          {/* Important Dates - Simplified for Offline */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl text-orange-600">
-                <Calendar className="w-5 h-5 mr-2" />
-                Important Dates
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-                  <div className="text-sm text-gray-600 mb-1">Form Available From</div>
-                  <div className="text-lg font-bold text-green-700">{jobData.applicationStart}</div>
-                </div>
-                <div className="p-4 bg-red-50 rounded-lg border border-red-200 text-center">
-                  <div className="text-sm text-gray-600 mb-1">Last Date to Submit</div>
-                  <div className="text-lg font-bold text-red-700">{jobData.applicationEnd}</div>
-                </div>
-                <div className="p-4 bg-purple-50 rounded-lg border border-purple-200 text-center">
-                  <div className="text-sm text-gray-600 mb-1">Exam Date</div>
-                  <div className="text-lg font-bold text-purple-700">{jobData.examDate}</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+            {/* Important Info Bar */}
+            <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white text-center py-2">
+              <div className="font-bold text-lg">{posts[0]?.position || jobData.title}</div>
+            </div>
 
-          {/* Fee & Eligibility - Combined for Offline */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center text-lg text-green-600">
-                  <IndianRupee className="w-5 h-5 mr-2" />
-                  Application Fee
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                    <span className="text-gray-700">General/OBC:</span>
-                    <span className="font-bold text-yellow-800">{jobData.feeGeneral}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-200">
-                    <span className="text-gray-700">SC/ST/PH:</span>
-                    <span className="font-bold text-blue-800">{jobData.feeReserved}</span>
-                  </div>
-                  <div className="text-xs text-gray-600 text-center">
-                    Payment by DD/Postal Order
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center text-lg text-purple-600">
-                  <GraduationCap className="w-5 h-5 mr-2" />
-                  Eligibility
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div>
-                    <span className="text-sm text-gray-600">Age Limit:</span>
-                    <div className="font-medium">{jobData.ageMinimum} - {jobData.ageMaximum}</div>
-                  </div>
-                  <div>
-                    <span className="text-sm text-gray-600">Education:</span>
-                    <div className="font-medium text-sm">{jobData.education}</div>
-                  </div>
-                  <div>
-                    <span className="text-sm text-gray-600">Experience:</span>
-                    <div className="font-medium">{jobData.experience}</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Application Type */}
+            <div className="flex justify-center items-center gap-4 py-3 bg-gray-100">
+              <span className="bg-purple-600 text-white px-4 py-2 rounded font-bold">पुरुष/महिला</span>
+              <span className="bg-blue-800 text-white px-6 py-2 rounded font-bold text-lg">Offline</span>
+              <span className="text-sm">निःशुल्क भर्ती</span>
+            </div>
           </div>
 
-          {/* Post Details */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl text-indigo-600">
-                <Building className="w-5 h-5 mr-2" />
-                Post Details & Vacancies
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse border border-gray-300">
-                  <thead>
-                    <tr className="bg-orange-50">
-                      <th className="border border-gray-300 px-4 py-2 text-left">Post Name</th>
-                      <th className="border border-gray-300 px-4 py-2 text-center">Vacancies</th>
-                      <th className="border border-gray-300 px-4 py-2 text-left">Eligibility</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {posts.map((post, index) => (
-                      <tr key={index} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                        <td className="border border-gray-300 px-4 py-2">{post.position}</td>
-                        <td className="border border-gray-300 px-4 py-2 text-center font-semibold text-orange-600">
-                          {post.vacancies}
-                        </td>
-                        <td className="border border-gray-300 px-4 py-2 text-sm">{post.eligibility}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+          {/* Key Details Table */}
+          <div className="bg-white border border-gray-400 mb-6">
+            <table className="w-full text-sm">
+              <tbody>
+                <tr className="border-b border-gray-400">
+                  <td className="bg-gray-200 font-semibold p-3 border-r border-gray-400 w-1/4">पद का नाम</td>
+                  <td className="p-3 border-r border-gray-400">{posts[0]?.position}</td>
+                  <td className="bg-gray-200 font-semibold p-3 border-r border-gray-400">योग्यता</td>
+                  <td className="p-3">{jobData.education}</td>
+                </tr>
+                <tr className="border-b border-gray-400">
+                  <td className="bg-gray-200 font-semibold p-3 border-r border-gray-400">कुल पद संख्या</td>
+                  <td className="p-3 border-r border-gray-400 font-bold text-blue-600">{jobData.totalPosts}</td>
+                  <td className="bg-gray-200 font-semibold p-3 border-r border-gray-400">आवेदन शुल्क</td>
+                  <td className="p-3">{jobData.feeGeneral}</td>
+                </tr>
+                <tr>
+                  <td className="bg-gray-200 font-semibold p-3 border-r border-gray-400">आयु सीमा</td>
+                  <td className="p-3 border-r border-gray-400">{jobData.ageMinimum} - {jobData.ageMaximum}</td>
+                  <td className="bg-gray-200 font-semibold p-3 border-r border-gray-400">वेतन</td>
+                  <td className="p-3">{jobData.payScale}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Important Dates Section */}
+          <div className="bg-green-100 border border-green-400 p-4 mb-6 rounded">
+            <div className="bg-green-600 text-white text-center py-2 mb-4 rounded font-bold">
+              विज्ञापन तिथियां - 20 रुपये
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div>
+                <strong>आवेदन शुरू:</strong> {jobData.applicationStart}
               </div>
-            </CardContent>
-          </Card>
+              <div>
+                <strong>आवेदन अंतिम तिथि:</strong> <span className="text-red-600 font-bold">{jobData.applicationEnd}</span>
+              </div>
+              <div>
+                <strong>फीस भुगतान अंतिम तिथि:</strong> {jobData.feePaymentEnd}
+              </div>
+              <div>
+                <strong>परीक्षा तिथि:</strong> {jobData.examDate}
+              </div>
+            </div>
+          </div>
+
+          {/* Application Process */}
+          <div className="bg-white border border-gray-400 p-4 mb-6">
+            <h3 className="font-bold text-lg mb-3 text-red-600">आवेदन कैसे करें - How to Apply Online:</h3>
+            <div className="space-y-2 text-sm">
+              <p>• आवेदकों को सबसे पहले ऑनलाइन आवेदन करना होगा।</p>
+              <p>• इसके बाद अपने सभी जरूरी दस्तावेजों को अपलोड करना होगा।</p>
+              <p>• सभी जानकारी सही से भरने के बाद फीस का भुगतान करना होगा।</p>
+              <p>• आवेदन की अंतिम तिथि <strong className="text-red-600">{jobData.applicationEnd}</strong> है।</p>
+            </div>
+          </div>
 
           {/* Selection Process */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center text-xl text-orange-600">
-                <GraduationCap className="w-5 h-5 mr-2" />
-                Selection Process
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {selectionProcess.map((step, index) => (
-                  <div key={index} className="flex items-center p-3 bg-orange-50 rounded-lg border border-orange-200">
-                    <div className="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center text-sm font-semibold mr-3">
-                      {index + 1}
-                    </div>
-                    <span className="font-medium text-gray-800">{step}</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-white border border-gray-400 p-4 mb-6">
+            <h3 className="font-bold text-lg mb-3 text-blue-600">चयन प्रक्रिया - Selection Process:</h3>
+            <div className="space-y-2 text-sm">
+              {selectionProcess.map((step, index) => (
+                <div key={index} className="flex items-start">
+                  <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3 mt-0.5">
+                    {index + 1}
+                  </span>
+                  <span>{step}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-          {/* Quick Links at Bottom */}
-          <Card>
-            <CardHeader className="bg-orange-600 text-white rounded-t-lg">
-              <CardTitle className="text-lg">Download Links</CardTitle>
-            </CardHeader>
-            <CardContent className="p-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Button className="w-full bg-red-600 hover:bg-red-700 justify-start" size="sm">
-                  <Download className="w-4 h-4 mr-2" />
-                  Application Form
-                </Button>
-                <Button variant="outline" className="w-full justify-start border-orange-200 text-orange-600 hover:bg-orange-50" size="sm">
-                  <FileText className="w-4 h-4 mr-2" />
-                  Notification PDF
-                </Button>
-                <Button variant="outline" className="w-full justify-start" size="sm">
-                  <Globe className="w-4 h-4 mr-2" />
-                  Official Website
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Post-wise Details */}
+          <div className="bg-white border border-gray-400 mb-6 overflow-x-auto">
+            <div className="bg-gray-200 p-3 font-bold text-center">पदवार विवरण - Post Wise Details</div>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border border-gray-400 p-2">क्र.सं.</th>
+                  <th className="border border-gray-400 p-2">पद का नाम</th>
+                  <th className="border border-gray-400 p-2">कुल पद</th>
+                  <th className="border border-gray-400 p-2">योग्यता</th>
+                </tr>
+              </thead>
+              <tbody>
+                {posts.map((post, index) => (
+                  <tr key={index} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                    <td className="border border-gray-400 p-2 text-center">{index + 1}</td>
+                    <td className="border border-gray-400 p-2">{post.position}</td>
+                    <td className="border border-gray-400 p-2 text-center font-bold text-blue-600">{post.vacancies}</td>
+                    <td className="border border-gray-400 p-2">{post.eligibility}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Website Footer */}
+          <div className="bg-red-600 text-white text-center py-3 rounded mb-6">
+            <div className="font-bold text-lg">www.vacancyform.com</div>
+            <div className="text-sm">Join Telegram | https://telegram.me/singhalprakashan | SP/June/39 | SINGHAL PRAKASHAN REGD. NO. H1J130</div>
+          </div>
+
+          {/* Download Links */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Button className="w-full bg-red-600 hover:bg-red-700 py-3">
+              <Download className="w-4 h-4 mr-2" />
+              Download Application
+            </Button>
+            <Button variant="outline" className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 py-3">
+              <FileText className="w-4 h-4 mr-2" />
+              Official Notification
+            </Button>
+            <Button variant="outline" className="w-full py-3">
+              <Globe className="w-4 h-4 mr-2" />
+              Official Website
+            </Button>
+          </div>
         </div>
       </div>
 
