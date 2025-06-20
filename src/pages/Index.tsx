@@ -217,8 +217,8 @@ const Index = () => {
                             <h4 className="text-sm font-medium text-slate-800 hover:text-primary line-clamp-2">
                               {item.title}
                             </h4>
-                            <span className="text-xs text-green-700 font-medium">
-                              {item.description}
+                            <span className="text-xs text-red-600 font-medium">
+                              Last Date: {item.lastDate || item.description}
                             </span>
                             {item.organization && (
                               <div className="text-xs text-gray-500 mt-1">
@@ -261,8 +261,8 @@ const Index = () => {
                             <h4 className="text-sm font-medium text-slate-800 hover:text-primary line-clamp-2">
                               {item.title}
                             </h4>
-                            <span className="text-xs text-orange-700 font-medium">
-                              {item.description}
+                            <span className="text-xs text-red-600 font-medium">
+                              Last Date: {item.lastDate || item.description}
                             </span>
                           </div>
                         </div>
@@ -300,8 +300,8 @@ const Index = () => {
                             <h4 className="text-sm font-medium text-slate-800 hover:text-primary line-clamp-2">
                               {item.title}
                             </h4>
-                            <span className="text-xs text-purple-700 font-medium">
-                              {item.description}
+                            <span className="text-xs text-red-600 font-medium">
+                              Last Date: {item.lastDate || item.description}
                             </span>
                           </div>
                         </div>

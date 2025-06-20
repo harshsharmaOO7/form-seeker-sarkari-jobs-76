@@ -5,7 +5,9 @@ import {
   Download,
   FileText,
   Globe,
-  MessageCircle
+  MessageCircle,
+  Users,
+  ExternalLink
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -197,6 +199,26 @@ const OfflineJobForms = () => {
             </div>
           </div>
 
+          {/* Application Address Section */}
+          {jobData.applicationAddress && (
+            <div className="bg-white border border-gray-400 p-4 mb-6">
+              <h3 className="font-bold text-lg mb-3 text-blue-600">आवेदन भेजने का पता - Application Address:</h3>
+              <div className="text-sm whitespace-pre-line">
+                {jobData.applicationAddress}
+              </div>
+            </div>
+          )}
+
+          {/* General Conditions Section */}
+          {jobData.generalConditions && (
+            <div className="bg-white border border-gray-400 p-4 mb-6">
+              <h3 className="font-bold text-lg mb-3 text-purple-600">अन्य सामान्य शर्ते व निर्देश - Other General Terms & Instructions:</h3>
+              <div className="text-sm whitespace-pre-line">
+                {jobData.generalConditions}
+              </div>
+            </div>
+          )}
+
           {/* Selection Process */}
           {selectionProcess.length > 0 && (
             <div className="bg-white border border-gray-400 p-4 mb-6">
@@ -241,38 +263,37 @@ const OfflineJobForms = () => {
             </div>
           )}
 
-          {/* Website Footer */}
-          <div className="bg-red-600 text-white text-center py-3 rounded mb-6">
-            <div className="font-bold text-lg">www.vacancyform.com</div>
-            <div className="text-sm">Join Telegram | https://telegram.me/singhalprakashan | SP/June/39 | SINGHAL PRAKASHAN REGD. NO. H1J130</div>
-          </div>
-
-          {/* Quick Links - Moved to Bottom */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {jobData.onlineFormLink && (
-              <Button className="w-full bg-red-600 hover:bg-red-700 py-3">
-                <Download className="w-4 h-4 mr-2" />
-                Download Application
-              </Button>
-            )}
-            {jobData.notificationLink && (
-              <Button variant="outline" className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 py-3">
-                <FileText className="w-4 h-4 mr-2" />
-                Official Notification
-              </Button>
-            )}
-            {jobData.telegramLink && (
-              <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-50 py-3">
-                <MessageCircle className="w-4 h-4 mr-2" />
-                Join Telegram
-              </Button>
-            )}
-            {jobData.officialWebsite && (
-              <Button variant="outline" className="w-full py-3">
-                <Globe className="w-4 h-4 mr-2" />
-                Official Website
-              </Button>
-            )}
+          {/* Quick Links Box */}
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 border-2 border-gray-300 rounded-lg p-6 mb-6">
+            <div className="text-center mb-4">
+              <h3 className="text-white text-xl font-bold">Quick Links & Resources</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {jobData.formLink && (
+                <a href={jobData.formLink} target="_blank" rel="noopener noreferrer">
+                  <Button className="w-full bg-red-600 hover:bg-red-700 py-3">
+                    <Download className="w-4 h-4 mr-2" />
+                    Download Form
+                  </Button>
+                </a>
+              )}
+              {jobData.socialLink && (
+                <a href={jobData.socialLink} target="_blank" rel="noopener noreferrer">
+                  <Button className="w-full bg-green-600 hover:bg-green-700 py-3">
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Join Telegram
+                  </Button>
+                </a>
+              )}
+              {jobData.notificationLink && (
+                <a href={jobData.notificationLink} target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 py-3 bg-white">
+                    <FileText className="w-4 h-4 mr-2" />
+                    Official Notification
+                  </Button>
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>

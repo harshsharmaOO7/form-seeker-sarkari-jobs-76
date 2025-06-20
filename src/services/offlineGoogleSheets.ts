@@ -42,10 +42,14 @@ export interface OfflineJobData {
   email: string;
   website: string;
 
-  // Links
-  onlineFormLink: string;
+  // New Fields
+  applicationAddress: string; // आवेदन भेजने का पता
+  generalConditions: string; // अन्य सामान्य शर्ते व निर्देश
+  
+  // Links for the bottom box
+  formLink: string;
+  socialLink: string;
   notificationLink: string;
-  telegramLink: string;
 
   // Column Description
   columnDescription: string;
@@ -63,7 +67,7 @@ class OfflineGoogleSheetsService {
         return [];
       }
 
-      const range = `${this.SHEET_NAME}!A:Z`;
+      const range = `${this.SHEET_NAME}!A:AC`;
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.SHEET_ID}/values/${range}?key=${this.API_KEY}`;
       
       console.log("Fetching offline jobs data from Google Sheets...");
@@ -124,13 +128,17 @@ class OfflineGoogleSheetsService {
         email: row[24] || "",
         website: row[25] || "",
         
-        // Links
-        onlineFormLink: row[26] || "",
-        notificationLink: row[27] || "",
-        telegramLink: row[28] || "",
+        // New Fields
+        applicationAddress: row[26] || "",
+        generalConditions: row[27] || "",
+        
+        // Links for the bottom box
+        formLink: row[28] || "",
+        socialLink: row[29] || "",
+        notificationLink: row[30] || "",
         
         // Column Description
-        columnDescription: row[29] || "Download Available"
+        columnDescription: row[31] || "Download Available"
       }));
 
       console.log("Processed offline jobs data:", jobs);
