@@ -229,15 +229,15 @@ const Index = () => {
                       <Link to={item.link} className="block hover:text-primary">
                         <div className="flex items-start gap-2">
                           <span className="text-blue-600 text-xs mt-1">•</span>
-                          <div>
-                            <h4 className="text-sm font-medium text-slate-800 hover:text-primary line-clamp-2">
+                          <div className="flex-1">
+                            <h4 className="text-sm font-medium text-gray-900 hover:text-primary line-clamp-2 mb-1">
                               {item.title}
                             </h4>
-                            <span className="text-xs text-red-600 font-medium">
+                            <span className="text-xs text-red-700 font-bold bg-red-50 px-2 py-1 rounded">
                               Last Date: {item.lastDate || "31 Dec 2024"}
                             </span>
                             {item.organization && (
-                              <div className="text-xs text-gray-500 mt-1">
+                              <div className="text-xs text-gray-600 mt-1">
                                 {item.organization}
                               </div>
                             )}
@@ -272,12 +272,12 @@ const Index = () => {
                     >
                       <Link to={item.link} className="block hover:text-primary">
                         <div className="flex items-start gap-2">
-                          <span className="text-blue-600 text-xs mt-1">•</span>
-                          <div>
-                            <h4 className="text-sm font-medium text-slate-800 hover:text-primary line-clamp-2">
+                          <span className="text-green-600 text-xs mt-1">•</span>
+                          <div className="flex-1">
+                            <h4 className="text-sm font-medium text-gray-900 hover:text-primary line-clamp-2 mb-1">
                               {item.title}
                             </h4>
-                            <span className="text-xs text-red-600 font-medium">
+                            <span className="text-xs text-red-700 font-bold bg-red-50 px-2 py-1 rounded">
                               Last Date: {item.lastDate || "31 Dec 2024"}
                             </span>
                           </div>
@@ -312,11 +312,11 @@ const Index = () => {
                       <Link to={item.link} className="block hover:text-primary">
                         <div className="flex items-start gap-2">
                           <span className="text-blue-600 text-xs mt-1">•</span>
-                          <div>
-                            <h4 className="text-sm font-medium text-slate-800 hover:text-primary line-clamp-2">
+                          <div className="flex-1">
+                            <h4 className="text-sm font-medium text-gray-900 hover:text-primary line-clamp-2 mb-1">
                               {item.title}
                             </h4>
-                            <span className="text-xs text-red-600 font-medium">
+                            <span className="text-xs text-red-700 font-bold bg-red-50 px-2 py-1 rounded">
                               Last Date: {item.lastDate || "31 Dec 2024"}
                             </span>
                           </div>
