@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -52,30 +53,35 @@ const Index = () => {
       title: "SSC Combined Hindi Translators JHT Offline Form 2025",
       description: "Download Available",
       link: "/offline-form/1",
+      lastDate: "31 Dec 2024"
     },
     {
       id: 2,
       title: "Railway Group D Offline Application Form 2025",
       description: "PDF Download",
       link: "/offline-form/2",
+      lastDate: "15 Jan 2025"
     },
     {
       id: 3,
       title: "Police Constable Offline Form 2025",
       description: "Download Now",
       link: "/offline-form/3",
+      lastDate: "25 Jan 2025"
     },
     {
       id: 4,
       title: "BSPHCL Various Post Offline Form 2025",
       description: "Available",
       link: "/offline-form/4",
+      lastDate: "05 Feb 2025"
     },
     {
       id: 5,
       title: "UP GNM Entrance Test Offline Form 2025",
       description: "Download PDF",
       link: "/offline-form/5",
+      lastDate: "10 Feb 2025"
     },
   ];
 
@@ -85,30 +91,35 @@ const Index = () => {
       title: "SSC Stenographer Grade C and D Online Form 2025",
       description: "Apply Online",
       link: "/online-form/1",
+      lastDate: "28 Dec 2024"
     },
     {
       id: 2,
       title: "Army School AWES TGT, PGT, PRT Online Form 2025",
       description: "Registration Open",
       link: "/online-form/2",
+      lastDate: "20 Jan 2025"
     },
     {
       id: 3,
       title: "Bihar Panchayati Raj Technical Assistant Online Form 2025",
       description: "Apply Now",
       link: "/online-form/3",
+      lastDate: "30 Jan 2025"
     },
     {
       id: 4,
       title: "BSSC Field Assistant Online Application 2025",
       description: "Available",
       link: "/online-form/4",
+      lastDate: "12 Feb 2025"
     },
     {
       id: 5,
       title: "NAUKRIIG NET June 2025 Online Registration",
       description: "Apply Online",
       link: "/online-form/5",
+      lastDate: "15 Feb 2025"
     },
   ];
 
@@ -118,24 +129,28 @@ const Index = () => {
       title: "SSC Combined Hindi Translators JHT Online Form 2025",
       description: "Apply Online",
       link: "/sewayojan/1",
+      lastDate: "31 Dec 2024"
     },
     {
       id: 2,
       title: "SSC Stenographer Grade C and D Online Form 2025",
       description: "Registration Open",
       link: "/sewayojan/2",
+      lastDate: "28 Dec 2024"
     },
     {
       id: 3,
       title: "Army School AWES TGT, PGT, PRT Online Form 2025",
       description: "Apply Now",
       link: "/sewayojan/3",
+      lastDate: "20 Jan 2025"
     },
     {
       id: 4,
       title: "Bihar Panchayati Raj Technical Assistant Online Form 2025",
       description: "Application Open",
       link: "/sewayojan/4",
+      lastDate: "30 Jan 2025"
     },
     {
       id: 5,
@@ -143,6 +158,7 @@ const Index = () => {
         "IPSCDRA Operation Officer and Other Various Post Online Form 2025",
       description: "Apply Online",
       link: "/sewayojan/5",
+      lastDate: "08 Feb 2025"
     },
   ];
 
@@ -218,7 +234,7 @@ const Index = () => {
                               {item.title}
                             </h4>
                             <span className="text-xs text-red-600 font-medium">
-                              Last Date: {item.lastDate || item.description}
+                              Last Date: {item.lastDate || "31 Dec 2024"}
                             </span>
                             {item.organization && (
                               <div className="text-xs text-gray-500 mt-1">
@@ -262,7 +278,7 @@ const Index = () => {
                               {item.title}
                             </h4>
                             <span className="text-xs text-red-600 font-medium">
-                              Last Date: {item.lastDate || item.description}
+                              Last Date: {item.lastDate || "31 Dec 2024"}
                             </span>
                           </div>
                         </div>
@@ -301,7 +317,7 @@ const Index = () => {
                               {item.title}
                             </h4>
                             <span className="text-xs text-red-600 font-medium">
-                              Last Date: {item.lastDate || item.description}
+                              Last Date: {item.lastDate || "31 Dec 2024"}
                             </span>
                           </div>
                         </div>

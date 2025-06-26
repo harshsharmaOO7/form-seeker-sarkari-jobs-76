@@ -188,14 +188,24 @@ const OfflineJobForms = () => {
             </div>
           </div>
 
+          {/* Physical Eligibility Section */}
+          {jobData.physicalEligibility && (
+            <div className="bg-white border border-gray-400 p-4 mb-6">
+              <h3 className="font-bold text-lg mb-3 text-orange-600">शारीरिक योग्यता - Physical Eligibility:</h3>
+              <div className="text-sm whitespace-pre-line">
+                {jobData.physicalEligibility}
+              </div>
+            </div>
+          )}
+
           {/* Application Process */}
           <div className="bg-white border border-gray-400 p-4 mb-6">
             <h3 className="font-bold text-lg mb-3 text-red-600">आवेदन कैसे करें - How to Apply:</h3>
-            <div className="space-y-2 text-sm">
-              <p>• आवेदकों को सबसे पहले ऑफलाइन आवेदन करना होगा।</p>
-              <p>• इसके बाद अपने सभी जरूरी दस्तावेजों को संलग्न करना होगा।</p>
-              <p>• सभी जानकारी सही से भरने के बाद फीस का भुगतान करना होगा।</p>
-              <p>• आवेदन की अंतिम तिथि <strong className="text-red-600">{jobData.applicationEnd}</strong> है।</p>
+            <div className="text-sm whitespace-pre-line">
+              {jobData.howToApply || `• आवेदकों को सबसे पहले ऑफलाइन आवेदन करना होगा।
+• इसके बाद अपने सभी जरूरी दस्तावेजों को संलग्न करना होगा।
+• सभी जानकारी सही से भरने के बाद फीस का भुगतान करना होगा।
+• आवेदन की अंतिम तिथि ${jobData.applicationEnd} है।`}
             </div>
           </div>
 
@@ -205,6 +215,16 @@ const OfflineJobForms = () => {
               <h3 className="font-bold text-lg mb-3 text-blue-600">आवेदन भेजने का पता - Application Address:</h3>
               <div className="text-sm whitespace-pre-line">
                 {jobData.applicationAddress}
+              </div>
+            </div>
+          )}
+
+          {/* Required Documents Section */}
+          {jobData.requiredDocuments && (
+            <div className="bg-white border border-gray-400 p-4 mb-6">
+              <h3 className="font-bold text-lg mb-3 text-indigo-600">आवश्यक दस्तावेज - Required Documents:</h3>
+              <div className="text-sm whitespace-pre-line">
+                {jobData.requiredDocuments}
               </div>
             </div>
           )}
